@@ -54,7 +54,7 @@ camera.lookAt(cube.position);
 
 
 var planeGeometry = new THREE.PlaneBufferGeometry( 500, 500, 20, 20 );
-  var planeMaterial = new THREE.MeshStandardMaterial( { color: 0xf5ff5a } )
+  var planeMaterial = new THREE.MeshStandardMaterial( { color: 0x000000 } )
   var plane = new THREE.Mesh( planeGeometry, planeMaterial );
   plane.position.set(30, -20, 0);
   plane.receiveShadow = true;
@@ -62,6 +62,13 @@ var planeGeometry = new THREE.PlaneBufferGeometry( 500, 500, 20, 20 );
 
 
   scene.add(plane);
+
+var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
+ var skyboxMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide });
+ var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+ 
+scene.add(skybox);
+
 function render(){
 	renderer.render(scene, camera);
 	  

@@ -68,13 +68,13 @@ function onDocumentKeyDown(event) {
     	(cube.rotation.z=Math.PI *90/180)&&
         (cube.position.z -= 40);
     } else if (keyCode === 83) {
-    	(cube.rotation.z=Math.PI *90/180)&&
+    	(cube.rotation.z=Math.PI *-90/180)&&
         (cube.position.z += 40);
     } else if (keyCode === 65) {
     	(cube.rotation.x=Math.PI *90/180)&&
         (cube.position.x -= 40);
     } else if (keyCode === 68) {
-    	(cube.rotation.x=Math.PI *90/180)&&
+    	(cube.rotation.x=Math.PI *-90/180)&&
         (cube.position.x += 40);
      } else if (keyCode === 13) {
 
@@ -103,14 +103,14 @@ var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
  
 scene.add(skybox);
 
-
+ 
 function render(){
-	renderer.render(scene, camera);
-	  // cube.rotation.z=Math.PI *90/180;
-   //   cube.rotation.x=Math.PI *90/180;
+	
+     
+	  
     requestAnimationFrame(render);
-
-
+    renderer.render(scene, camera);
+    
 }
 
  render();    

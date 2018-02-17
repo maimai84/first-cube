@@ -110,7 +110,8 @@ function render(){
 	  
     requestAnimationFrame(render);
     renderer.render(scene, camera);
-    
+     
+renderer.shadowMapEnabled=true;
 }
 
  render();    

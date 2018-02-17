@@ -26,9 +26,7 @@ cubeGeometry.faces[5].color.setHex(Math.random()*0xf0c876);
 // cubeGeometry.faces[3].color.setHex( Math.random() * 0xffffff );
 // cubeGeometry.faces[4].color.setHex( Math.random() * 0xffffff );
 // cubeGeometry.faces[5].color.setHex( Math.random() * 0xffffff );
-
-
-var cubeMaterial = new THREE.MeshPhongMaterial( { color: 0xffccff, vertexColors: THREE.FaceColors } );
+var cubeMaterial = new THREE.MeshPhongMaterial( { color: 0xf9ccff, vertexColors: THREE.FaceColors } );
 var cube = new THREE.Mesh(cubeGeometry,cubeMaterial);
 cube.castShadow = true;
  scene.add(cube);
@@ -65,17 +63,22 @@ document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
     if (keyCode == 87) {
+
     	(cube.rotation.z=Math.PI *90/180)&&
         (cube.position.z -= 40);
+        console.log("11111");
     } else if (keyCode === 83) {
     	(cube.rotation.z=Math.PI *-90/180)&&
         (cube.position.z += 40);
+        console.log("2222222");
     } else if (keyCode === 65) {
     	(cube.rotation.x=Math.PI *90/180)&&
         (cube.position.x -= 40);
+        console.log("3333333");
     } else if (keyCode === 68) {
     	(cube.rotation.x=Math.PI *-90/180)&&
         (cube.position.x += 40);
+        console.log("44444");
      } else if (keyCode === 13) {
 
          cube.position.set(0,0,0);
@@ -111,7 +114,7 @@ function render(){
     requestAnimationFrame(render);
     renderer.render(scene, camera);
      
-renderer.shadowMapEnabled=true;
+// renderer.shadowMapEnabled=true;
 }
 
  render();    

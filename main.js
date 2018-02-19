@@ -40,10 +40,10 @@ cube.castShadow = true;
 
  // scene.add(pointLight);
 
-var spotLight = new THREE.SpotLight(0xffffff);
-spotLight.position.set(155, 130,330);
-spotLight.castShadow = true;
-scene.add(spotLight);
+// var spotLight = new THREE.SpotLight(0xffffff);
+// spotLight.position.set(155, 130,330);
+// spotLight.castShadow = true;
+// scene.add(spotLight);
 
 var light = new THREE.AmbientLight( 0x404040 ); // soft white light
 scene.add( light );
@@ -61,6 +61,16 @@ camera.position.z = 330;
 
 scene.add(camera);
 camera.lookAt(cube.position);
+
+     window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+     renderer.setSize(window.innerWidth, window.innerHeight);
+     renderer.render(scene, camera);
+ }
+ controls=new THREE.OrbitControls(camera,renderer.domElement);
 
 var planeGeometry = new THREE.PlaneBufferGeometry( 500, 500, 10, 10 );
   var planeMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff } )
@@ -111,9 +121,8 @@ function onDocumentKeyDown(event) {
 
          cube.position.set(0,0,0);
           
-          cube.scale.x=1;
-          cube.scale.y=1;
-          cube.scale.z=1;
+          cube.scale.set(1,1,1);
+          
 
      }
 

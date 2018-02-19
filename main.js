@@ -1,8 +1,7 @@
 var width=window.innerWidth;
 var height=window.innerHeight;
 var camera, scene, renderer, cube, material,clock;
-init();
-function init(){
+
 
  renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(width,height);
@@ -13,7 +12,7 @@ $('body').append(renderer.domElement)
  scene = new THREE.Scene;
 
 
- // create shap
+ // create shape
 
 var cubeGeometry = new THREE.CubeGeometry(40, 40, 40);
 
@@ -23,8 +22,8 @@ var cubeGeometry = new THREE.CubeGeometry(40, 40, 40);
 var cubeMaterial=[
 new THREE.MeshBasicMaterial({color:'red',side:THREE.DoubleSide}),
 new THREE.MeshBasicMaterial({color:'blue',side:THREE.DoubleSide}),
-new THREE.MeshBasicMaterial({color:'green',side:THREE.BackSide}),
-new THREE.MeshBasicMaterial({color:'purpl',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'green',side:THREE.DoubleSide}),// on side
+new THREE.MeshBasicMaterial({color:'white',side:THREE.DoubleSide}),
 new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('crate.gif'),side:THREE.DoubleSide}),
 new THREE.MeshBasicMaterial({color:'yellow',side:THREE.DoubleSide}),
 ];
@@ -66,9 +65,9 @@ camera.lookAt(cube.position);
 var planeGeometry = new THREE.PlaneBufferGeometry( 500, 500, 10, 10 );
   var planeMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff } )
   var plane = new THREE.Mesh( planeGeometry, planeMaterial );
-  plane.position.set(30, -20, 0);
+  plane.position.set(-30, -20, -10);
   plane.receiveShadow = true;
-  plane.rotation.x = -90 * Math.PI / 180;
+  plane.rotation.x = -80 * Math.PI / 180;
   scene.add(plane);
 
 
@@ -78,9 +77,8 @@ var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
  
 scene.add(skybox);
 
-render();
 
-}
+
 document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
     var keyCode = event.which;
@@ -103,10 +101,19 @@ function onDocumentKeyDown(event) {
     
 
     
+    } else if (keyCode === 107) {
+
+         cube.scale.x=2,5;
+          cube.scale.y=2,5;
+          cube.scale.z=2,5;
+     
     } else if (keyCode === 13) {
 
          cube.position.set(0,0,0);
-    
+          
+          cube.scale.x=1;
+          cube.scale.y=1;
+          cube.scale.z=1;
 
      }
 
@@ -116,7 +123,7 @@ function onDocumentKeyDown(event) {
 
 
 
-
+var clock=new THREE.Clock;
 
  // draw the scene
 function render(){
@@ -124,6 +131,7 @@ function render(){
 
     requestAnimationFrame(render);
      
+      cube.rotation.x+=clock.getDelta();
       
     renderer.render(scene, camera);
     

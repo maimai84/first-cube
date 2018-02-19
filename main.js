@@ -1,34 +1,38 @@
 var width=window.innerWidth;
 var height=window.innerHeight;
+var camera, scene, renderer, cube, material,clock;
+init();
+function init(){
 
-
-
-var renderer=new THREE.WebGLRenderer({antialias:true});
+ renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(width,height);
 $('body').append(renderer.domElement)
  renderer.shadowMapEnabled = true;
 
 
-var scene = new THREE.Scene;
+ scene = new THREE.Scene;
+
+
+ // create shap
+
 var cubeGeometry = new THREE.CubeGeometry(40, 40, 40);
-cubeGeometry.faces[0].color.setHex(Math.random()*0xf0c876);
-cubeGeometry.faces[1].color.setHex(Math.random()*0xf0c876);
-cubeGeometry.faces[2].color.setHex(Math.random()*0xf0c876);
-cubeGeometry.faces[3].color.setHex(Math.random()*0xf0c876);
-cubeGeometry.faces[4].color.setHex(Math.random()*0xf0c876);
-cubeGeometry.faces[5].color.setHex(Math.random()*0xf0c876);
 
 
+// create material color or image texture
 
-// cubeGeometry.faces[0].color.setHex( Math.random() * 0xffffff );
-// cubeGeometry.faces[1].color.setHex( Math.random() * 0xffffff );
-// cubeGeometry.faces[2].color.setHex( Math.random() * 0xffffff );
-// cubeGeometry.faces[3].color.setHex( Math.random() * 0xffffff );
-// cubeGeometry.faces[4].color.setHex( Math.random() * 0xffffff );
-// cubeGeometry.faces[5].color.setHex( Math.random() * 0xffffff );
-var cubeMaterial = new THREE.MeshPhongMaterial( { color: 0xf9ccff, vertexColors: THREE.FaceColors } );
-var cube = new THREE.Mesh(cubeGeometry,cubeMaterial);
+var cubeMaterial=[
+new THREE.MeshBasicMaterial({color:'red',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'blue',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'green',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'purpl',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'white',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'yellow',side:THREE.DoubleSide}),
+];
+
+var material = new THREE.MeshFaceMaterial( cubeMaterial );
+ cube = new THREE.Mesh(cubeGeometry,material);
 cube.castShadow = true;
+
  scene.add(cube);
 
 
@@ -36,6 +40,7 @@ cube.castShadow = true;
  //  pointLight.position.set(0,110, 900);
 
  // scene.add(pointLight);
+
 var spotLight = new THREE.SpotLight(0xffffff);
 spotLight.position.set(155, 130,330);
 spotLight.castShadow = true;
@@ -50,46 +55,13 @@ scene.add( light );
 
 
 
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000)
+ camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000)
 camera.position.y =360 ;
 camera.position.z = 330;
 
 
 scene.add(camera);
 camera.lookAt(cube.position);
-
-
-document.addEventListener("keydown", onDocumentKeyDown, false);
-function onDocumentKeyDown(event) {
-    var keyCode = event.which;
-    if (keyCode == 87) {
-
-    	(cube.rotation.z=Math.PI *90/180)&&
-        (cube.position.z -= 40);
-        console.log("11111");
-    } else if (keyCode === 83) {
-    	(cube.rotation.z=Math.PI *-90/180)&&
-        (cube.position.z += 40);
-        console.log("2222222");
-    } else if (keyCode === 65) {
-    	(cube.rotation.x=Math.PI *90/180)&&
-        (cube.position.x -= 40);
-        console.log("3333333");
-    } else if (keyCode === 68) {
-    	(cube.rotation.x=Math.PI *-90/180)&&
-        (cube.position.x += 40);
-        console.log("44444");
-     } else if (keyCode === 13) {
-
-         cube.position.set(0,0,0);
-    
-
-     }
-
-
-};
-
-
 
 var planeGeometry = new THREE.PlaneBufferGeometry( 500, 500, 10, 10 );
   var planeMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff } )
@@ -106,18 +78,59 @@ var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
  
 scene.add(skybox);
 
- 
+render();
+
+}
+document.addEventListener("keydown", onDocumentKeyDown, false);
+function onDocumentKeyDown(event) {
+    var keyCode = event.which;
+    if (keyCode == 87) {
+
+    	(cube.rotation.z=Math.PI *90/180)&&
+        (cube.position.z -= 40);
+        
+    } else if (keyCode === 83) {
+    	(cube.rotation.z=Math.PI *-90/180)&&
+        (cube.position.z += 40);
+
+    } else if (keyCode === 65) {
+    	(cube.rotation.x=Math.PI *90/180)&&
+        (cube.position.x -= 40);
+  
+    } else if (keyCode === 68) {
+    	(cube.rotation.x=Math.PI *-90/180)&&
+        (cube.position.x += 40);
+    
+
+    
+    } else if (keyCode === 13) {
+
+         cube.position.set(0,0,0);
+    
+
+     }
+
+  render();
+
+};
+
+
+
+
+
+ // draw the scene
 function render(){
-	
-     
-	  
+
+
     requestAnimationFrame(render);
-    renderer.render(scene, camera);
      
-// renderer.shadowMapEnabled=true;
+      
+    renderer.render(scene, camera);
+    
+
 }
 
- render();    
+    
    
  
 

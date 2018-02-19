@@ -23,9 +23,9 @@ var cubeGeometry = new THREE.CubeGeometry(40, 40, 40);
 var cubeMaterial=[
 new THREE.MeshBasicMaterial({color:'red',side:THREE.DoubleSide}),
 new THREE.MeshBasicMaterial({color:'blue',side:THREE.DoubleSide}),
-new THREE.MeshBasicMaterial({color:'green',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({color:'green',side:THREE.BackSide}),
 new THREE.MeshBasicMaterial({color:'purpl',side:THREE.DoubleSide}),
-new THREE.MeshBasicMaterial({color:'white',side:THREE.DoubleSide}),
+new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('crate.gif'),side:THREE.DoubleSide}),
 new THREE.MeshBasicMaterial({color:'yellow',side:THREE.DoubleSide}),
 ];
 
